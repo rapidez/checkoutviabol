@@ -1,37 +1,36 @@
-# Rapidez :package_name_without_prefix
-<!--delete-->
-This repository can be used as template for a new Rapidez package.
+# Rapidez checkoutviabol
 
-- Click on "Use this template" on the top of this Github repo page
-- Run `php ./configure.php`
+Adds support for the bol.checkout (`cvb`) payment method to Rapidez.
 
-Credits to [`spatie/package-skeleton-laravel`](https://github.com/spatie/package-skeleton-laravel) for the inpiration for this template.
+## Requirements
 
-Keep in mind that if you contribute to this template; it should work for official and unofficial packages!
-- `rapidez/something`
-- `someone/rapidez-something`
-<!--/delete-->
-:package_description
+- The [bol.checkout Magento 2 module](https://cvb.composer.bol.com/) (`bol/magento2-module-checkoutviabol`)
+- The `checkoutviabol-graphql` module here: https://github.com/justbetter/magento2-module-checkoutviabol-graphql
 
 ## Installation
 
-```
-composer require :vendor_slug/:package_slug
-```
-
-## Configuration
-
-You can publish the config with:
-```
-php artisan vendor:publish --tag=rapidez-:package_slug_without_prefix-config
+```bash
+composer require rapidez/checkoutviabol
 ```
 
-## Views
+Publish the payment icon:
 
-You can publish the views with:
+```bash
+php artisan vendor:publish --provider="Rapidez\Checkoutviabol\CheckoutviabolServiceProvider" --tag=payment-icons
 ```
-php artisan vendor:publish --tag=rapidez-:package_slug_without_prefix-views
+
+## bol urls
+
+bol only receives paths (`/cvb/...`), the domain is configured on the bol merchant account. When that domain points to your Rapidez frontend, make sure `/cvb/*` is passed to Magento in your webserver config. For example, by adding `cvb` to the regex from the [Rapidez deployment docs](https://docs.rapidez.io/0.x/deployment.html#redirecting-magento-to-rapidez).
+
+Magento needs these urls to be reachable:
+
 ```
+[your base url]/cvb/order/verify?[...]
+[your base url]/cvb/order/webhook?[...]
+```
+
+When the customer cancels or the payment fails, bol returns the customer to `/bol-return/cancel` on Rapidez, which reactivates the cart and redirects to the cart page. The order itself stays pending until bol or the Magento pending payment cleanup cancels it.
 
 ## License
 
