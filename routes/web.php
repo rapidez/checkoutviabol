@@ -14,4 +14,6 @@ Route::middleware('web')->group(function () {
 
         return redirect('cart');
     })->name('checkoutviabol.cancel');
+
+    Route::view('checkout/bol-return', 'checkoutviabol::return')->middleware('uncacheable')->name('checkoutviabol.checkout');
 });
