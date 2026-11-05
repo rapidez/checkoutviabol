@@ -54,6 +54,16 @@ Add `in-checkout` when you place it in the checkout instead of the cart, so bol 
 
 The slot must have one root element. The component is only rendered for guests with items in their cart.
 
+The bol.checkout logo is available as a component. It uses the current text color, so it can be styled with classes:
+
+```blade
+<x-checkoutviabol::graphql-mutation>
+    <button type="button" class="rounded bg-[#0000A4] px-5 py-3 text-white" v-on:click="mutate" v-bind:disabled="running">
+        <x-checkoutviabol::logo class="h-5 w-auto" />
+    </button>
+</x-checkoutviabol::graphql-mutation>
+```
+
 Configure these paths in Magento, in `Stores > Configuration > Sales > Payment Methods > Bol.checkout GraphQL`:
 
 | Field                | Value                 |
