@@ -17,7 +17,7 @@
 
     <x-rapidez-ct::toolbar>
         <x-rapidez::button.conversion type="submit" loader>
-            @lang('Pay with bol')
+            @lang('Pay with Bol')
         </x-rapidez::button.conversion>
     </x-rapidez-ct::toolbar>
     <x-slot:sidebar>

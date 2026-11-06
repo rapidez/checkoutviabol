@@ -3,7 +3,7 @@
         @include('rapidez::checkout.steps.shipping-method')
 
         <x-rapidez::button.conversion type="submit" class="self-start" loader>
-            @lang('Pay with bol')
+            @lang('Pay with Bol')
         </x-rapidez::button.conversion>
     </div>
     <div class="w-full xl:w-1/4">
