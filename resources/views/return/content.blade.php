@@ -1,12 +1,1 @@
-<div class="flex gap-10 max-xl:flex-col">
-    <div class="flex w-full flex-col gap-5 xl:w-3/4">
-        @includeFirst(['rapidez-ct::checkout.partials.sections.shipping', 'rapidez::checkout.steps.shipping-method'])
-
-        <x-rapidez::button.conversion type="submit" class="self-start" loader>
-            @lang('Pay with bol')
-        </x-rapidez::button.conversion>
-    </div>
-    <div class="w-full xl:w-1/4">
-        @includeFirst(['rapidez-ct::checkout.partials.sidebar.sidebar', 'rapidez::checkout.partials.sidebar'])
-    </div>
-</div>
+@include(view()->exists('rapidez-ct::checkout.partials.sections.shipping') ? 'checkoutviabol::return.content.checkout-theme' : 'checkoutviabol::return.content.core')

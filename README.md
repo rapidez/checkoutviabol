@@ -73,18 +73,28 @@ Configure these paths in Magento, in `Stores > Configuration > Sales > Payment M
 
 After filling in the details at bol, the customer returns to `/checkout/bol-return`. This page fills the cart with the details from bol, selects the bol.checkout payment method and shows the shipping methods. The "Pay with bol" button places the order and redirects to bol for the payment.
 
-The page uses the shipping and sidebar views of the [checkout theme](https://github.com/rapidez/checkout-theme) when it is installed, and the Rapidez core views when it is not. To change the page, override one of these views:
+The page uses the layout, cards, shipping and sidebar views of the [checkout theme](https://github.com/rapidez/checkout-theme) when it is installed, and the Rapidez core views when it is not. Each has its own content view, so override the one that your shop uses. For example, to change the pay button in a shop with the checkout theme, override `checkoutviabol::return.content.checkout-theme`.
 
-| View                                 | Contents                                         |
-| ------------------------------------ | ------------------------------------------------ |
-| `checkoutviabol::return.content`     | The shipping methods, pay button and sidebar     |
-| `checkoutviabol::return.applying`    | The loader while the bol details are applied     |
-| `checkoutviabol::return`             | The page itself, with the place order mutation   |
+| View                                            | Contents                                                                   |
+| ----------------------------------------------- | -------------------------------------------------------------------------- |
+| `checkoutviabol::return.content.checkout-theme` | The shipping methods, pay button and sidebar, with the checkout theme      |
+| `checkoutviabol::return.content.core`           | The shipping methods, pay button and sidebar, without the checkout theme   |
+| `checkoutviabol::return.content`                | Selects the content view                                                   |
+| `checkoutviabol::return.applying`               | The loader while the bol details are applied                               |
+| `checkoutviabol::return`                        | The page itself, with the place order mutation                             |
 
 Publish the views to override them:
 
 ```bash
 php artisan vendor:publish --provider="Rapidez\Checkoutviabol\CheckoutviabolServiceProvider" --tag=views
+```
+
+### Checkout layout
+
+The Rapidez layout only shows the checkout header and footer on the `checkout` route. To show them on the return page too, add the `checkoutviabol.checkout` route to each `routeIs` check in your `rapidez::layouts.app` override:
+
+```blade
+@includeWhen(request()->routeIs('checkout', 'checkoutviabol.checkout'), 'rapidez::layouts.checkout.header')
 ```
 
 ## License
