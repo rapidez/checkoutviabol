@@ -11,6 +11,7 @@ class CheckoutviabolServiceProvider extends ServiceProvider
     {
         $this
             ->bootRoutes()
+            ->bootViews()
             ->bootPublishables()
             ->bootFilters();
     }
@@ -22,8 +23,20 @@ class CheckoutviabolServiceProvider extends ServiceProvider
         return $this;
     }
 
+    public function bootViews(): self
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'checkoutviabol');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
+
+        return $this;
+    }
+
     public function bootPublishables(): self
     {
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/checkoutviabol'),
+        ], 'views');
+
         $this->publishes([
             __DIR__ . '/../resources/payment-icons' => public_path('payment-icons'),
         ], 'payment-icons');
